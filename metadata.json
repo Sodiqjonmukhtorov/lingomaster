@@ -1,0 +1,7 @@
+{
+  "name": "LingoMaster: English-Uzbek Vocabulary Trainer",
+  "description": "An interactive and fun vocabulary game designed to help users quickly memorize English-Uzbek words from Education, Hometown, and Accommodation topics through Flashcards, Quizzes, and Speed Matching.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
