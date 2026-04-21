@@ -6,14 +6,24 @@ import { t } from '../translations';
 interface ExamUnitSelectorProps {
   units: Unit[];
   lang: 'uz' | 'en';
-  onStart: (selectedUnits: Unit[], onlySingleWords: boolean) => void;
+  onStart: (selectedUnits: Unit[], filterMode: 'all' | 'strict') => void;
   onCancel: () => void;
 }
 
 const ExamUnitSelector: React.FC<ExamUnitSelectorProps> = ({ units, lang, onStart, onCancel }) => {
   const [selectedIds, setSelectedIds] = useState<string[]>(units.map(u => u.id));
-  const [onlySingleWords, setOnlySingleWords] = useState(false);
+  const [filterMode, setFilterMode] = useState<'all' | 'strict'>('all');
+  const [isListView, setIsListView] = useState(false);
   const text = t[lang];
+
+  const getStrictSingleWordsCount = (words: any[]) => words.filter(w => !w.en.trim().includes(' ') && !w.en.includes('-')).length;
+
+  const totalWordsInSelected = units
+    .filter(u => selectedIds.includes(u.id))
+    .reduce((acc, u) => {
+      if (filterMode === 'strict') return acc + getStrictSingleWordsCount(u.words);
+      return acc + u.words.length;
+    }, 0);
 
   const toggleUnit = (id: string) => {
     setSelectedIds(prev => 
@@ -37,16 +47,69 @@ const ExamUnitSelector: React.FC<ExamUnitSelectorProps> = ({ units, lang, onStar
       return;
     }
 
-    if (onlySingleWords) {
-      const singleWordsCount = selected.flatMap(u => u.words).filter(w => !w.en.trim().includes(' ')).length;
-      if (singleWordsCount === 0) {
-        alert(lang === 'uz' ? "Tanlangan bo'limlarda bittalik so'zlar topilmadi!" : "No single words found in selected units!");
+    if (filterMode !== 'all') {
+      const wordsCount = selected.flatMap(u => u.words).filter(w => {
+        return !w.en.trim().includes(' ') && !w.en.includes('-');
+      }).length;
+
+      if (wordsCount === 0) {
+        alert(lang === 'uz' ? "Tanlangan bo'limlarda mos so'zlar topilmadi!" : "No matching words found in selected units!");
         return;
       }
     }
 
-    onStart(selected, onlySingleWords);
+    onStart(selected, filterMode);
   };
+
+  const getFilteredWords = () => {
+    const selected = units.filter(u => selectedIds.includes(u.id));
+    return selected.flatMap(u => u.words).filter(w => {
+      if (filterMode === 'strict') return !w.en.trim().includes(' ') && !w.en.includes('-');
+      return true;
+    });
+  };
+
+  if (isListView) {
+    const filteredWords = getFilteredWords();
+    return (
+      <div className="w-full max-w-4xl mx-auto py-8 animate-fadeIn px-4">
+        <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 border-4 border-indigo-100">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-slate-800 uppercase tracking-tighter italic">
+              {lang === 'uz' ? `So'zlar ro'yxati (${filteredWords.length})` : `Word List (${filteredWords.length})`}
+            </h2>
+            <button onClick={() => setIsListView(false)} className="px-6 py-2 bg-slate-900 text-white rounded-xl font-black text-xs uppercase tracking-widest hover:bg-black transition-all">
+              {lang === 'uz' ? 'Orqaga' : 'Back'}
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto px-2 py-4 custom-scrollbar">
+             {filteredWords.map((word, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border-2 border-slate-100 hover:border-indigo-200 transition-all">
+                   <span className="w-8 h-8 flex items-center justify-center bg-indigo-600 text-white rounded-lg font-black text-[10px] shrink-0">{idx + 1}</span>
+                   <div className="overflow-hidden">
+                      <div className="font-black text-slate-800 uppercase tracking-tight text-sm truncate">{word.en}</div>
+                      <div className="text-slate-500 font-bold italic text-xs truncate">{word.uz}</div>
+                   </div>
+                </div>
+             ))}
+          </div>
+
+          <div className="mt-10 flex flex-col items-center gap-4">
+             <button 
+               onClick={handleStart}
+               className="w-full bg-rose-600 text-white py-6 rounded-[2.5rem] font-black text-2xl uppercase tracking-widest hover:bg-rose-700 transition-all shadow-2xl shadow-rose-100 active:scale-95"
+             >
+               {lang === 'uz' ? "Shu ro'yxatdan imtihon boshlash" : "Start Exam from this list"} 🚀
+             </button>
+             <button onClick={() => setIsListView(false)} className="text-slate-400 font-black text-xs uppercase tracking-widest hover:text-slate-800 transition">
+                {lang === 'uz' ? "Sozlamalarga qaytish" : "Back to settings"}
+             </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto py-8 animate-fadeIn px-4">
@@ -78,18 +141,27 @@ const ExamUnitSelector: React.FC<ExamUnitSelectorProps> = ({ units, lang, onStar
             Units 6-24
           </button>
 
+          <button 
+            onClick={() => setIsListView(true)}
+            className="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg flex items-center gap-2"
+          >
+            <span>📜</span>
+            {lang === 'uz' ? "Ro'yxatni ko'rish" : "View List"}
+          </button>
+
           <div className="flex-1"></div>
 
           <button 
-            onClick={() => setOnlySingleWords(!onlySingleWords)}
+            onClick={() => setFilterMode(filterMode === 'strict' ? 'all' : 'strict')}
             className={`px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all flex items-center gap-2 border-2 ${
-              onlySingleWords 
-                ? 'bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-100' 
-                : 'bg-white border-slate-100 text-slate-400 hover:border-emerald-200'
+              filterMode === 'strict' 
+                ? 'bg-amber-500 border-amber-400 text-white shadow-lg shadow-amber-100' 
+                : 'bg-white border-slate-100 text-slate-400 hover:border-amber-200'
             }`}
           >
-            <span>{onlySingleWords ? '✅' : '⭕'}</span>
-            {lang === 'uz' ? "Faqat bittalik so'zlar" : "Single Words Only"}
+            <span>{filterMode === 'strict' ? '✨' : '⭕'}</span>
+            {lang === 'uz' ? "Sof 1-lik so'zlar" : "Pure Words"}
+            {filterMode === 'strict' && <span className="ml-1 px-2 py-0.5 bg-white/20 rounded-lg text-[10px]">{totalWordsInSelected}</span>}
           </button>
         </div>
 
@@ -114,6 +186,9 @@ const ExamUnitSelector: React.FC<ExamUnitSelectorProps> = ({ units, lang, onStar
                 <div className="font-black text-sm uppercase tracking-tight leading-none">
                   {unit.title.split(': ')[1] || unit.title}
                 </div>
+                <div className={`text-[9px] font-bold mt-1 ${selectedIds.includes(unit.id) ? 'text-indigo-100/80' : 'text-slate-400'}`}>
+                  {getStrictSingleWordsCount(unit.words)} {lang === 'uz' ? "ta so'z" : "words"}
+                </div>
               </div>
               <div className={`ml-auto w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                 selectedIds.includes(unit.id) ? 'bg-white border-white text-indigo-600' : 'border-slate-200'
@@ -132,10 +207,8 @@ const ExamUnitSelector: React.FC<ExamUnitSelectorProps> = ({ units, lang, onStar
         </button>
         
         <p className="mt-6 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-          {onlySingleWords 
-            ? (lang === 'uz' ? "Tanlangan bo'limlardan faqat bittalik so'zlar (20 ta tasodifiy)" : "Only single words from selected units (20 random)")
-            : (lang === 'uz' ? "Tanlangan bo'limlardan 20 ta tasodifiy savol" : "20 random questions from selected units")
-          }
+          {filterMode === 'strict' && (lang === 'uz' ? `Sof bir bo'lakli so'zlar (Chiziqcha va bo'sh joylarsiz) (Jami: ${totalWordsInSelected}, 20 tasodifiy)` : `Pure single words (No hyphens/spaces) (Total: ${totalWordsInSelected}, 20 random)`)}
+          {filterMode === 'all' && (lang === 'uz' ? "Tanlangan bo'limlardan 20 ta tasodifiy savol" : "20 random questions from selected units")}
         </p>
       </div>
     </div>

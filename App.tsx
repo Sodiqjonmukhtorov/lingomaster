@@ -73,12 +73,12 @@ const App: React.FC = () => {
     setSelectedUnit(null);
   };
 
-  const startGlobalExam = (selectedUnits: Unit[], onlySingleWords: boolean) => {
+  const startGlobalExam = (selectedUnits: Unit[], filterMode: 'all' | 'strict') => {
     let words = selectedUnits.flatMap(u => u.words);
     
-    if (onlySingleWords) {
-      // Filter for single words (no spaces in English version)
-      words = words.filter(w => !w.en.trim().includes(' '));
+    if (filterMode === 'strict') {
+      // Filter for pure single words (no spaces and no hyphens)
+      words = words.filter(w => !w.en.trim().includes(' ') && !w.en.includes('-'));
     }
     
     setExamWords(words);
