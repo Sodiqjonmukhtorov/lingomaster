@@ -11,7 +11,9 @@ import MatchGame from './components/MatchGame';
 import WrittenGame from './components/WrittenGame';
 import Exam from './components/Exam';
 import ScrambleGame from './components/ScrambleGame';
+import VoiceGame from './components/VoiceGame';
 import GlobalExam from './components/GlobalExam';
+import ExamUnitSelector from './components/ExamUnitSelector';
 import TenseGame from './components/TenseGame';
 import SprintGame from './components/SprintGame';
 import HelpModal from './components/HelpModal';
@@ -28,6 +30,8 @@ const App: React.FC = () => {
   const [vocabCategory, setVocabCategory] = useState<WordCategory>('SHORT');
   const [searchQuery, setSearchQuery] = useState('');
   const [isVocabExamActive, setIsVocabExamActive] = useState(false);
+  const [isSelectingExamUnits, setIsSelectingExamUnits] = useState(false);
+  const [examWords, setExamWords] = useState<Word[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [helpMode, setHelpMode] = useState<'FAQ' | 'ABOUT'>('FAQ');
 
@@ -39,6 +43,7 @@ const App: React.FC = () => {
     setView('HOME');
     setSearchQuery('');
     setIsVocabExamActive(false);
+    setIsSelectingExamUnits(false);
   };
 
   const handleUnitSelect = (unit: Unit) => {
@@ -62,9 +67,23 @@ const App: React.FC = () => {
   };
 
   const handleMegaExam = () => {
-    setGameMode(GameMode.GLOBAL_EXAM);
+    setIsSelectingExamUnits(true);
+    setGameMode(GameMode.IDLE);
     setView('HOME');
     setSelectedUnit(null);
+  };
+
+  const startGlobalExam = (selectedUnits: Unit[], onlySingleWords: boolean) => {
+    let words = selectedUnits.flatMap(u => u.words);
+    
+    if (onlySingleWords) {
+      // Filter for single words (no spaces in English version)
+      words = words.filter(w => !w.en.trim().includes(' '));
+    }
+    
+    setExamWords(words);
+    setIsSelectingExamUnits(false);
+    setGameMode(GameMode.GLOBAL_EXAM);
   };
 
   const allWords = VOCAB_DATA.flatMap(unit => unit.words);
@@ -97,6 +116,17 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (view === 'TENSE') {
       return <TenseGame lang={lang} onExit={resetGame} />;
+    }
+
+    if (isSelectingExamUnits) {
+      return (
+        <ExamUnitSelector 
+          units={VOCAB_DATA} 
+          lang={lang} 
+          onStart={startGlobalExam} 
+          onCancel={() => setIsSelectingExamUnits(false)} 
+        />
+      );
     }
 
     if (view === 'VOCABULARY') {
@@ -211,7 +241,7 @@ const App: React.FC = () => {
     }
 
     if (gameMode === GameMode.GLOBAL_EXAM) {
-      return <GlobalExam words={allWords} onExit={resetGame} lang={lang} />;
+      return <GlobalExam words={examWords} onExit={resetGame} lang={lang} />;
     }
 
     if (selectedUnit) {
@@ -233,6 +263,9 @@ const App: React.FC = () => {
               <GameCard onClick={() => setGameMode(GameMode.MATCH)} title={text.match} desc={text.matchDesc} icon="🔥" />
               <GameCard onClick={() => setGameMode(GameMode.SCRAMBLE)} title={text.scramble} desc={text.scrambleDesc} icon="🧩" />
               <GameCard onClick={() => setGameMode(GameMode.WRITTEN)} title={text.written} desc={text.writtenDesc} icon="✍️" />
+              <GameCard onClick={() => setGameMode(GameMode.VOICE_EN_UZ)} title={text.voiceEnUz} desc={text.voiceEnUzDesc} icon="🎤" isNew />
+              <GameCard onClick={() => setGameMode(GameMode.VOICE_UZ_EN)} title={text.voiceUzEn} desc={text.voiceUzEnDesc} icon="🗣️" isNew />
+              <GameCard onClick={() => setGameMode(GameMode.PRONUNCIATION)} title={text.pronunciation} desc={text.pronunciationDesc} icon="📖" isNew />
               <GameCard onClick={() => setGameMode(GameMode.PRACTICE_EN_UZ)} title={text.uzWords} desc={text.uzWordsDesc} icon="🇺🇿" />
               <GameCard onClick={() => setGameMode(GameMode.PRACTICE_UZ_EN)} title={text.enWords} desc={text.enWordsDesc} icon="🇬🇧" />
               <div className="lg:col-span-1">
@@ -258,6 +291,9 @@ const App: React.FC = () => {
           case GameMode.PRACTICE_EN_UZ: return <WrittenGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} fixedDirection="EN_UZ" />;
           case GameMode.PRACTICE_UZ_EN: return <WrittenGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} fixedDirection="UZ_EN" />;
           case GameMode.SCRAMBLE: return <ScrambleGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} />;
+          case GameMode.VOICE_EN_UZ: return <VoiceGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} direction="EN_UZ" />;
+          case GameMode.VOICE_UZ_EN: return <VoiceGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} direction="UZ_EN" />;
+          case GameMode.PRONUNCIATION: return <VoiceGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} direction="EN_READ" />;
           case GameMode.EXAM: return <Exam words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} />;
           default: return null;
         }
@@ -279,7 +315,7 @@ const App: React.FC = () => {
         </div>
         <div className="w-full mt-20">
           <button 
-            onClick={() => setGameMode(GameMode.GLOBAL_EXAM)}
+            onClick={handleMegaExam}
             className="group relative w-full flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 py-10 md:py-16 bg-slate-950 text-white rounded-[2.5rem] md:rounded-[4rem] font-black text-xl md:text-5xl uppercase tracking-[0.2em] md:tracking-[0.3em] hover:bg-blue-700 transition-all duration-700 shadow-[0_40px_80px_rgba(0,0,0,0.3)] active:scale-[0.97] overflow-hidden"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
@@ -287,7 +323,7 @@ const App: React.FC = () => {
                <span className="text-3xl md:text-7xl transform group-hover:rotate-12 group-hover:scale-125 transition-all duration-500">🏆</span>
                <div className="text-center md:text-left flex flex-col">
                   <span className="leading-none">{text.megaExamTitle.split(' (')[0]}</span>
-                  <span className="text-[8px] md:text-sm font-bold text-emerald-400 tracking-[0.3em] md:tracking-[0.5em] mt-2 md:mt-3 opacity-80 uppercase">Full 12 Units • Pro Exam</span>
+                  <span className="text-[8px] md:text-sm font-bold text-emerald-400 tracking-[0.3em] md:tracking-[0.5em] mt-2 md:mt-3 opacity-80 uppercase">Customizable • Pro Exam</span>
                </div>
             </div>
           </button>

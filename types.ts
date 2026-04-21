@@ -13,6 +13,14 @@ export interface Unit {
   words: Word[];
 }
 
+export interface Tense {
+  id: string;
+  title: string;
+  formula: string;
+  example: string;
+  description: string;
+}
+
 export type Language = 'uz' | 'en';
 
 export enum GameMode {
@@ -26,5 +34,8 @@ export enum GameMode {
   GLOBAL_EXAM = 'GLOBAL_EXAM',
   PRACTICE_EN_UZ = 'PRACTICE_EN_UZ',
   PRACTICE_UZ_EN = 'PRACTICE_UZ_EN',
-  SPRINT = 'SPRINT'
+  SPRINT = 'SPRINT',
+  VOICE_EN_UZ = 'VOICE_EN_UZ',
+  VOICE_UZ_EN = 'VOICE_UZ_EN',
+  PRONUNCIATION = 'PRONUNCIATION'
 }

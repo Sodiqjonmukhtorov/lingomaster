@@ -42,18 +42,45 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
   const generateQuestions = useCallback(() => {
     // Create a flattened map of wordId to unitTitle for easy lookup
     const wordToUnitMap: Record<string, string> = {};
+    const unitToWordsMap: Record<string, Word[]> = {};
+    
     VOCAB_DATA.forEach(unit => {
+      unitToWordsMap[unit.title] = unit.words;
       unit.words.forEach(w => {
         wordToUnitMap[w.id] = unit.title;
       });
     });
 
-    const pool = [...words].sort(() => Math.random() - 0.5);
-    const selectedWords = pool.slice(0, 20);
-    const questions: ExamQuestion[] = [];
+    // Identify which units are in the current words pool
+    const unitsInPool = Array.from(new Set(words.map(w => wordToUnitMap[w.id])));
     
+    // We want at least one word from each unit if possible
+    const selectedWords: Word[] = [];
+    const targetCount = unitsInPool.length > 20 ? Math.min(words.length, 30) : 20;
+
+    // First, pick one word from each unit
+    unitsInPool.forEach(uTitle => {
+      const unitWordsInPool = words.filter(w => wordToUnitMap[w.id] === uTitle);
+      if (unitWordsInPool.length > 0) {
+        const randomWord = unitWordsInPool[Math.floor(Math.random() * unitWordsInPool.length)];
+        selectedWords.push(randomWord);
+      }
+    });
+
+    // If we need more words to reach targetCount, fill with random ones
+    const remainingWords = words.filter(w => !selectedWords.some(sw => sw.id === w.id));
+    const shuffledRemaining = remainingWords.sort(() => Math.random() - 0.5);
+    
+    while (selectedWords.length < targetCount && shuffledRemaining.length > 0) {
+      selectedWords.push(shuffledRemaining.pop()!);
+    }
+
+    // Final shuffle of selected words
+    selectedWords.sort(() => Math.random() - 0.5);
+
+    const questions: ExamQuestion[] = [];
     selectedWords.forEach((w, i) => {
-      const isEnToUz = i < 10;
+      const isEnToUz = i % 2 === 0; // Alternating directions for better variety
       questions.push({
         id: w.id,
         word: w,
@@ -141,45 +168,45 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
     const scorePercentage = Math.round((correctCount / answers.length) * 100);
 
     return (
-      <div className="w-full max-w-4xl mx-auto py-8 animate-fadeIn">
-        <div className="bg-white rounded-[40px] shadow-2xl p-8 md:p-12 border-4 border-indigo-100 flex flex-col items-center">
-          <div className="text-7xl mb-4">
+      <div className="w-full max-w-4xl mx-auto py-2 md:py-4 animate-fadeIn">
+        <div className="bg-white rounded-[32px] shadow-2xl p-5 md:p-8 border-4 border-indigo-100 flex flex-col items-center">
+          <div className="text-5xl mb-2">
             {scorePercentage >= 90 ? '🦁' : scorePercentage >= 70 ? '🦅' : scorePercentage >= 50 ? '🦊' : '🐢'}
           </div>
-          <h2 className="text-4xl font-black text-slate-800 mb-2 uppercase tracking-tighter">{textDict.megaExamResults}</h2>
+          <h2 className="text-2xl font-black text-slate-800 mb-1 uppercase tracking-tighter">{textDict.megaExamResults}</h2>
           
-          <div className="flex items-baseline gap-2 mb-10">
-            <span className="text-8xl font-black text-indigo-600">{scorePercentage}</span>
-            <span className="text-2xl font-black text-indigo-300">%</span>
+          <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-full w-40 h-40 border-4 border-indigo-100 mb-4 shadow-inner">
+            <span className="text-5xl font-black text-indigo-600 leading-none">{scorePercentage}</span>
+            <span className="text-lg font-black text-indigo-300 uppercase tracking-widest mt-1">%</span>
           </div>
 
-          <div className="w-full space-y-6">
-            <div className="flex justify-between items-end border-b-2 border-slate-100 pb-2">
-               <h3 className="text-xl font-bold text-slate-700">{lang === 'uz' ? 'Xatolar Tahlili' : 'Mistakes Analysis'}</h3>
-               <span className="text-slate-400 font-bold">{correctCount} / {answers.length} {lang === 'uz' ? 'To\'g\'ri' : 'Correct'}</span>
+          <div className="w-full space-y-4">
+            <div className="flex justify-between items-end border-b-2 border-slate-100 pb-1">
+               <h3 className="text-lg font-bold text-slate-700">{lang === 'uz' ? 'Xatolar Tahlili' : 'Mistakes Analysis'}</h3>
+               <span className="text-slate-400 text-xs font-bold">{correctCount} / {answers.length} {lang === 'uz' ? 'To\'g\'ri' : 'Correct'}</span>
             </div>
             
-            <div className="max-h-[500px] overflow-y-auto pr-2 space-y-4 custom-scrollbar">
+            <div className="max-h-[300px] md:max-h-[350px] overflow-y-auto pr-2 space-y-2 custom-scrollbar">
               {answers.map((ans, i) => (
-                <div key={i} className={`p-6 rounded-3xl border-2 relative overflow-hidden transition-all ${ans.isCorrect ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'}`}>
+                <div key={i} className={`p-3 rounded-2xl border-2 relative overflow-hidden transition-all ${ans.isCorrect ? 'bg-emerald-50 border-emerald-50' : 'bg-rose-50 border-rose-50'}`}>
                   {/* Unit Badge */}
-                  <div className="absolute top-0 right-0 px-4 py-1.5 bg-indigo-600 text-white text-[9px] font-black uppercase tracking-widest rounded-bl-2xl">
+                  <div className="absolute top-0 right-0 px-2 py-0.5 bg-indigo-600/80 text-white text-[8px] font-black uppercase tracking-widest rounded-bl-xl backdrop-blur-sm">
                     {ans.unitTitle}
                   </div>
 
-                  <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-between items-start mb-2">
                     <div className="max-w-[80%]">
-                        <div className="font-black text-slate-800 text-xl">{ans.question}</div>
+                        <div className="font-black text-slate-800 text-base leading-tight">{ans.question}</div>
                     </div>
-                    <div className={`mt-1 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${ans.isCorrect ? 'bg-emerald-200 text-emerald-700' : 'bg-rose-200 text-rose-700'}`}>
+                    <div className={`mt-0.5 px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${ans.isCorrect ? 'bg-emerald-200 text-emerald-700' : 'bg-rose-200 text-rose-700'}`}>
                       {ans.isCorrect ? textDict.correct : textDict.wrong}
                     </div>
                   </div>
 
-                  <div className="text-sm space-y-1">
+                  <div className="text-[11px] space-y-0.5 leading-tight">
                     <p className="text-slate-500 font-medium">
                         {lang === 'uz' ? 'Sizning javobingiz' : 'Your answer'}: 
-                        <span className={`ml-2 font-black ${ans.isCorrect ? 'text-emerald-700' : 'text-rose-700'}`}>
+                        <span className={`ml-1 font-black ${ans.isCorrect ? 'text-emerald-700' : 'text-rose-700'}`}>
                             {ans.user || '---'}
                         </span>
                     </p>
@@ -194,11 +221,11 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mt-10">
+          <div className="grid grid-cols-2 gap-3 w-full mt-6">
             {mistakes.length > 0 && (
                 <button 
                     onClick={() => setIsCorrectingMistakes(true)}
-                    className="md:col-span-2 bg-indigo-600 text-white px-8 py-5 rounded-3xl font-black text-xl hover:bg-black transition-all shadow-xl shadow-indigo-100 mb-2"
+                    className="col-span-2 bg-indigo-600 text-white px-6 py-4 rounded-2xl font-black text-lg hover:bg-black transition-all shadow-lg active:scale-95"
                 >
                     🚀 {textDict.correctMistakes}
                 </button>
@@ -211,7 +238,7 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
                 setInput('');
                 setIsFinished(false);
               }}
-              className="bg-indigo-100 text-indigo-700 px-8 py-5 rounded-3xl font-black text-lg hover:bg-indigo-200 transition-all"
+              className="bg-indigo-50 text-indigo-700 px-6 py-4 rounded-2xl font-black text-sm hover:bg-indigo-100 transition-all border border-indigo-100"
             >
               🔄 {textDict.retry}
             </button>
@@ -223,9 +250,15 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
                 setInput('');
                 setIsFinished(false);
               }}
-              className="bg-slate-900 text-white px-8 py-5 rounded-3xl font-black text-lg hover:bg-black transition-all shadow-lg"
+              className="bg-slate-900 text-white px-6 py-4 rounded-2xl font-black text-sm hover:bg-black transition-all shadow-lg flex items-center justify-center gap-2"
             >
               NEXT EXAM ➔
+            </button>
+            <button 
+              onClick={onExit}
+              className="col-span-2 text-slate-400 font-black text-[10px] uppercase tracking-[0.2em] hover:text-slate-600 transition-colors py-2"
+            >
+              {textDict.backToMenu}
             </button>
           </div>
         </div>
@@ -241,7 +274,7 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
       <div className="flex justify-between items-center mb-10 px-4">
         <button onClick={onExit} className="text-slate-400 hover:text-slate-800 transition font-black">✕ {textDict.exit}</button>
         <div className="flex flex-col items-center">
-          <div className="text-indigo-600 font-black tracking-widest text-xs uppercase">MEGA EXAM (20 Qs)</div>
+          <div className="text-indigo-600 font-black tracking-widest text-xs uppercase">EXAM ({examQuestions.length} Qs)</div>
           <div className="bg-slate-200 h-2 w-48 rounded-full mt-2 overflow-hidden">
             <div 
               className="bg-indigo-600 h-full transition-all duration-300" 
@@ -286,7 +319,7 @@ const GlobalExam: React.FC<GlobalExamProps> = ({ words, onExit, lang }) => {
       </div>
       
       <p className="mt-8 text-center text-slate-400 text-[10px] font-bold uppercase tracking-widest">
-        {lang === 'uz' ? 'Barcha 12 bo\'limdan tasodifiy savollar' : 'Random questions from all 12 units'}
+        {lang === 'uz' ? 'Tanlangan bo\'limlardan tasodifiy savollar' : 'Random questions from selected units'}
       </p>
     </div>
   );

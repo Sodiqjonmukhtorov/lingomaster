@@ -5,8 +5,8 @@ export const t = {
     selectTopic: "Bilimingizni oshirish uchun mavzu tanlang.",
     essentialWords: "ta muhim so'z",
     startLearning: "O'rganishni boshlash",
-    megaExamTitle: "Mega Imtihon (Barcha 12 bo'lim)",
-    megaExamDesc: "Barcha bo'limlardagi 400 tadan ortiq so'zlardan o'zingizni sinab ko'ring. 20 ta tasodifiy savol.",
+    megaExamTitle: "Full Exam (Imtihon)",
+    megaExamDesc: "O'zingiz xohlagan bo'limlarni tanlang va bilimingizni sinab ko'ring. 20 ta tasodifiy savol.",
     startExam: "Imtihonni boshlash",
     strategyTitle: "Tezkor yodlash strategiyasi: Bosqichlarni ketma-ket bajaring",
     backToTopics: "Boshqa mavzularga qaytish",
@@ -26,6 +26,12 @@ export const t = {
     uzWordsDesc: "EN savol -> UZ javob (Barcha so'zlar)",
     enWords: "Inglizcha so'zlar",
     enWordsDesc: "UZ savol -> EN javob (Barcha so'zlar)",
+    voiceEnUz: "Ovozli (EN -> UZ)",
+    voiceEnUzDesc: "EN eshiting -> UZ gapiring",
+    voiceUzEn: "Ovozli (UZ -> EN)",
+    voiceUzEnDesc: "UZ eshiting -> EN gapiring",
+    pronunciation: "Talaffuz (Pronunciation)",
+    pronunciationDesc: "So'zni to'g'ri o'qing (EN)",
     unitExam: "UNIT EXAM",
     unitExamDesc: "Ushbu bo'limdan yakuniy imtihon topshirish",
     exit: "Chiqish",
@@ -69,7 +75,7 @@ export const t = {
     whyNeedTitle: "Nega bu platforma kerak?",
     whyNeedDesc: "Til o'rganishda eng qiyin bosqich — so'zlarni esda saqlashdir. LingoMaster o'yinlar orqali zerikmasdan va qisqa vaqt ichida yuzlab yangi so'zlarni yodlashga yordam beradi.",
     featuresTitle: "Platforma imkoniyatlari",
-    feature1: "12 ta hayotiy mavzuga bo'lingan lug'at boyligi",
+    feature1: "24 ta hayotiy mavzuga bo'lingan lug'at boyligi",
     feature2: "7 xil qiziqarli va interaktiv o'yin rejimlar",
     feature3: "Full Exam - barcha mavzularni qamrab olgan imtihon",
     feature4: "Vocabulary Bank - eng ko'p ishlatiladigan qisqa so'zlar",
@@ -107,7 +113,7 @@ export const t = {
     aboutFeatures: [
       {
         title: "Lug'at boyligi",
-        desc: "12 ta hayotiy mavzuga bo'lingan 400 dan ortiq eng muhim so'zlarni o'rganish.",
+        desc: "24 ta hayotiy mavzuga bo'lingan 400 dan ortiq eng muhim so'zlarni o'rganish.",
         icon: "📚"
       },
       {
@@ -145,8 +151,8 @@ export const t = {
     selectTopic: "Select a topic to start mastering new vocabulary.",
     essentialWords: "essential words",
     startLearning: "Start Learning",
-    megaExamTitle: "Mega Exam (All 12 Units)",
-    megaExamDesc: "Test yourself with over 400 words from all units. 20 random questions.",
+    megaExamTitle: "Full Exam (Customizable)",
+    megaExamDesc: "Select the units you want and test your knowledge. 20 random questions.",
     startExam: "Start Exam 🚀",
     strategyTitle: "Quick Memorization Strategy: Complete steps in order",
     backToTopics: "Back to topics",
@@ -166,6 +172,12 @@ export const t = {
     uzWordsDesc: "EN question -> UZ answer (All words)",
     enWords: "English Words",
     enWordsDesc: "UZ question -> EN answer (All words)",
+    voiceEnUz: "Voice (EN -> UZ)",
+    voiceEnUzDesc: "Listen EN -> Speak UZ",
+    voiceUzEn: "Voice (UZ -> EN)",
+    voiceUzEnDesc: "Listen UZ -> Speak EN",
+    pronunciation: "Pronunciation",
+    pronunciationDesc: "Read the word correctly (EN)",
     unitExam: "UNIT EXAM",
     unitExamDesc: "Final exam for this unit",
     exit: "Exit",
@@ -209,7 +221,7 @@ export const t = {
     whyNeedTitle: "Why do you need this platform?",
     whyNeedDesc: "The hardest part of language learning is memorizing vocabulary. LingoMaster helps you memorize hundreds of words quickly without getting bored through interactive games.",
     featuresTitle: "Platform Features",
-    feature1: "Vocabulary divided into 12 real-life topics",
+    feature1: "Vocabulary divided into 24 real-life topics",
     feature2: "7 different fun and interactive game modes",
     feature3: "Full Exam - comprehensive test covering all units",
     feature4: "Vocabulary Bank - common short words and phrases",
@@ -247,7 +259,7 @@ export const t = {
     aboutFeatures: [
       {
         title: "Vocabulary Mastery",
-        desc: "Learn over 400 essential words divided into 12 real-life topics.",
+        desc: "Learn over 400 essential words divided into 24 real-life topics.",
         icon: "📚"
       },
       {

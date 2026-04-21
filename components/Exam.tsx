@@ -97,27 +97,27 @@ const Exam: React.FC<ExamProps> = ({ words, onExit, lang }) => {
   if (isFinished) {
     const correctCount = answers.filter(a => a.isCorrect).length;
     return (
-      <div className="w-full max-w-3xl mx-auto p-6 md:p-10 bg-white rounded-[3rem] shadow-2xl text-center border-4 border-slate-50 animate-fadeIn">
-        <h2 className="text-3xl font-black text-slate-800 mb-4 uppercase italic tracking-tighter">Imtihon Natijasi</h2>
-        <div className="text-7xl font-black text-rose-600 mb-6">{correctCount} / {answers.length}</div>
+      <div className="w-full max-w-2xl mx-auto p-4 md:p-6 bg-white rounded-[2.5rem] shadow-2xl text-center border-4 border-slate-50 animate-fadeIn">
+        <h2 className="text-2xl font-black text-slate-800 mb-2 uppercase italic tracking-tighter">Imtihon Natijasi</h2>
+        <div className="text-6xl font-black text-rose-600 mb-4">{correctCount} / {answers.length}</div>
         
         {/* Mistakes List */}
-        <div className="mb-10 text-left max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-          <h3 className="text-xl font-black text-slate-700 mb-4 uppercase tracking-tight border-b-2 border-slate-100 pb-2">
+        <div className="mb-6 text-left max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+          <h3 className="text-lg font-black text-slate-700 mb-2 uppercase tracking-tight border-b-2 border-slate-100 pb-1">
             {lang === 'uz' ? 'Xatolar Tahlili' : 'Mistakes Analysis'}
           </h3>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {answers.map((ans, i) => (
-              <div key={i} className={`p-4 rounded-2xl border-2 ${ans.isCorrect ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'}`}>
+              <div key={i} className={`p-3 rounded-xl border-2 ${ans.isCorrect ? 'bg-emerald-50 border-emerald-50' : 'bg-rose-50 border-rose-50'}`}>
                 <div className="flex justify-between items-center mb-1">
-                  <span className="font-black text-slate-800">{ans.question}</span>
-                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${ans.isCorrect ? 'bg-emerald-200 text-emerald-700' : 'bg-rose-200 text-rose-700'}`}>
+                  <span className="font-black text-slate-800 text-sm">{ans.question}</span>
+                  <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${ans.isCorrect ? 'bg-emerald-200 text-emerald-700' : 'bg-rose-200 text-rose-700'}`}>
                     {ans.isCorrect ? textDict.correct : textDict.wrong}
                   </span>
                 </div>
                 {!ans.isCorrect && (
-                  <div className="text-sm">
-                    <p className="text-slate-500">
+                  <div className="text-[11px] leading-tight">
+                    <p className="text-slate-500 font-medium">
                       {lang === 'uz' ? 'Sizning javobingiz' : 'Your answer'}: <span className="text-rose-600 font-bold">{ans.user || '---'}</span>
                     </p>
                     <p className="text-emerald-700 font-bold italic">
@@ -130,11 +130,11 @@ const Exam: React.FC<ExamProps> = ({ words, onExit, lang }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3">
           {mistakes.length > 0 && (
-            <button onClick={() => setIsCorrectingMistakes(true)} className="bg-blue-600 text-white px-8 py-5 rounded-[2rem] font-black uppercase text-xs tracking-widest shadow-xl">🚀 {textDict.correctMistakes}</button>
+            <button onClick={() => setIsCorrectingMistakes(true)} className="col-span-2 bg-blue-600 text-white px-6 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-lg">🚀 {textDict.correctMistakes}</button>
           )}
-          <button onClick={onExit} className="bg-slate-950 text-white px-8 py-5 rounded-[2rem] font-black uppercase text-xs tracking-widest shadow-xl">{textDict.backToMenu}</button>
+          <button onClick={onExit} className="col-span-2 bg-slate-950 text-white px-6 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-lg">{textDict.backToMenu}</button>
         </div>
       </div>
     );
