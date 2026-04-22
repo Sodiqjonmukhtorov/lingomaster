@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { io } from 'socket.io-client';
 import { VOCAB_DATA, CUSTOM_VOCAB } from './data';
 import { GameMode, Unit, Language, Word } from './types';
 import { t } from './translations';
@@ -34,6 +35,17 @@ const App: React.FC = () => {
   const [examWords, setExamWords] = useState<Word[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [helpMode, setHelpMode] = useState<'FAQ' | 'ABOUT'>('FAQ');
+  const [onlineCount, setOnlineCount] = useState(1);
+
+  useEffect(() => {
+    const socket = io();
+    socket.on('onlineCount', (count: number) => {
+      setOnlineCount(count);
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const text = t[lang];
 
@@ -71,6 +83,7 @@ const App: React.FC = () => {
     setGameMode(GameMode.IDLE);
     setView('HOME');
     setSelectedUnit(null);
+    setIsVocabExamActive(false);
   };
 
   const startGlobalExam = (selectedUnits: Unit[], filterMode: 'all' | 'strict') => {
@@ -99,7 +112,7 @@ const App: React.FC = () => {
 
   const getCurrentViewId = () => {
     if (view === 'TENSE') return 'TENSE';
-    if (gameMode === GameMode.GLOBAL_EXAM) return 'MEGA';
+    if (gameMode === GameMode.GLOBAL_EXAM || isSelectingExamUnits) return 'MEGA';
     if (view === 'VOCABULARY') return 'VOCABULARY';
     return 'HOME';
   };
@@ -110,7 +123,7 @@ const App: React.FC = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  const isGameActive = gameMode !== GameMode.IDLE || isVocabExamActive;
+  const isGameActive = gameMode !== GameMode.IDLE || isVocabExamActive || isSelectingExamUnits;
   const currentViewId = getCurrentViewId();
 
   const renderContent = () => {
@@ -353,6 +366,7 @@ const App: React.FC = () => {
           lang={lang} 
           setLang={setLang} 
           currentView={currentViewId}
+          onlineCount={onlineCount}
         />
       )}
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} lang={lang} mode={helpMode} setMode={setHelpMode} />

@@ -13,9 +13,10 @@ interface HeaderProps {
   lang: Language;
   setLang: (lang: Language) => void;
   currentView: string;
+  onlineCount?: number;
 }
 
-const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabulary, onHelp, onFaq, lang, setLang, currentView }) => {
+const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabulary, onHelp, onFaq, lang, setLang, currentView, onlineCount = 1 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const text = t[lang];
 
@@ -71,8 +72,14 @@ const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabula
             <NavBtn active={currentView === 'MEGA'} onClick={onMegaExam} label="MEGA EXAM" />
           </nav>
 
-          {/* AKSALAR (Yordam + Til) */}
+          {/* AKSALAR (Yordam + Til + Online) */}
           <div className="flex items-center gap-1 sm:gap-2">
+            {/* Online Counter */}
+            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 rounded-full border border-emerald-100/50">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
+              <span className="text-[8px] sm:text-[10px] font-black text-emerald-700 tracking-tight">{onlineCount} {lang === 'uz' ? 'onlayn' : 'online'}</span>
+            </div>
+
             <button 
               onClick={onHelp}
               className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-[8px] sm:text-[10px] font-black uppercase tracking-widest text-[#065f46] bg-[#ecfdf5] hover:bg-[#d1fae5] transition-all border border-[#d1fae5]"
