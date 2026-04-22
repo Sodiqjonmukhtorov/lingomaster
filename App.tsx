@@ -377,9 +377,11 @@ const App: React.FC = () => {
 
       {!isGameActive && <SupportWidget />}
       
-      <footer className="py-16 md:py-24 border-t border-blue-50 bg-blue-50/10 text-center">
+      <footer className="py-16 md:py-24 border-t border-slate-50 bg-slate-50/10 text-center">
           <h4 className="text-slate-900 font-black text-2xl md:text-3xl uppercase tracking-tighter italic">LINGOMASTER</h4>
-          <p className="text-blue-600 font-bold text-[8px] md:text-xs uppercase tracking-[0.4em] mt-3 opacity-60">© 2025 Sodiqjon Mukhtorov</p>
+          <p className="text-slate-500 font-black text-[9px] md:text-xs uppercase tracking-[0.4em] mt-3">
+            © 2025 <span className="bg-gradient-to-r from-orange-400 to-rose-500 text-white px-4 py-1.5 rounded-xl ml-1 shadow-lg shadow-orange-100">Sodiqjon Mukhtorov</span>
+          </p>
       </footer>
     </div>
   );

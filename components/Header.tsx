@@ -30,8 +30,8 @@ const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabula
       <div className="max-w-screen-2xl mx-auto flex flex-col gap-1">
         {/* Creator Info */}
         <div className="flex justify-center">
-          <p className="text-[7px] sm:text-[9px] font-bold text-[#059669]/60 uppercase tracking-[0.3em] bg-white/50 backdrop-blur-sm px-3 py-0.5 rounded-full border border-emerald-50/50">
-            {lang === 'uz' ? 'Yaratuvchi' : 'Creator'}: Sodiqjon Mukhtorov
+          <p className="text-[7.5px] sm:text-[10px] font-black text-rose-600 uppercase tracking-[0.4em] bg-rose-50/80 backdrop-blur-sm px-4 py-1.5 rounded-full border border-rose-200 shadow-sm shadow-rose-100/50">
+            {lang === 'uz' ? 'Yaratuvchi' : 'Creator'}: <span className="bg-gradient-to-r from-amber-500 to-rose-600 text-white px-2 py-0.5 rounded-md ml-1 shadow-md">Sodiqjon Mukhtorov</span>
           </p>
         </div>
         
