@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React, { useState } from 'react';
 import { VOCAB_DATA, CUSTOM_VOCAB } from './data';
 import { GameMode, Unit, Language, Word } from './types';
 import { t } from './translations';
@@ -35,17 +34,6 @@ const App: React.FC = () => {
   const [examWords, setExamWords] = useState<Word[]>([]);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [helpMode, setHelpMode] = useState<'FAQ' | 'ABOUT'>('FAQ');
-  const [onlineCount, setOnlineCount] = useState(1);
-
-  useEffect(() => {
-    const socket = io();
-    socket.on('onlineCount', (count: number) => {
-      setOnlineCount(count);
-    });
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
 
   const text = t[lang];
 
@@ -366,7 +354,6 @@ const App: React.FC = () => {
           lang={lang} 
           setLang={setLang} 
           currentView={currentViewId}
-          onlineCount={onlineCount}
         />
       )}
       <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} lang={lang} mode={helpMode} setMode={setHelpMode} />
