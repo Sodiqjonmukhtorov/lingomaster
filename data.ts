@@ -1151,17 +1151,83 @@ export const TENSE_DATA: Tense[] = [
     title: 'Present Simple', 
     formula: '(+) S + V1 (-s/es)\n(-) S + do/does + not + V1\n(?) Do/Does + S + V1?', 
     example: 'I work every day.\nHe works at a bank.\nI don\'t play football.\nDoes she like tea?', 
-    description: 'Present Simple - doimiy takrorlanadigan ish-harakatlar, umumiy haqiqatlar va jadvallar uchun ishlatiladi.\n\nQoida: He, She, It uchinchi shaxs birlikda fe\'lga -s yoki -es qo\'shimchasi qo\'shiladi.\n\nSignal so\'zlar: always, usually, often, sometimes, never.' 
+    description: '### 📌 1. Present Simple nima?\nPresent Simple — bu oddiy hozirgi zamon.\n\n### 👉 Qachon ishlatiladi?\n*   **Doimiy ishlar** (habit)\n*   **Faktlar** (haqiqatlar)\n*   **Jadval, reja**\n\n### 📌 2. Eng oson formulasi\n**✅ Oddiy gap:**\n`Subject + Verb (V1)`\n\n| Subject | Verb |\n| :--- | :--- |\n| I / You / We / They | work |\n| He / She / It | works |\n\n### 📌 3. MUHIM QOIDA (eng asosiy joy ⚠️)\n👉 Agar **He / She / It** bo‘lsa → verbga **-s / -es** qo‘shiladi\n\n**Misollar:**\n*   I work → Men ishlayman\n*   He works → U ishlaydi\n*   She likes tea → U choyni yaxshi ko‘radi\n*   It rains → Yomg‘ir yog‘adi\n\n### 📌 4. Qachon -es qo‘shiladi?\nAgar fe’l quyidagilar bilan tugasa:\n👉 **-sh, -ch, -ss, -x, -o**\n\n**Misol:**\ngo → goes, watch → watches, wash → washes\n\n### 📌 5. Inkor gap (Negative)\n👉 **Formula:**\n`Subject + do/does + not + V1`\n\n| Subject | Yordamchi |\n| :--- | :--- |\n| I / You / We / They | do not (don’t) |\n| He / She / It | does not (doesn’t) |\n\n**Misollar:**\n*   I do not work → Men ishlamayman\n*   He does not work → U ishlamaydi\n\n⚠️ **Eslatma:**\n👉 **does** bo‘lsa, fe’lga **s** qo‘shilmaydi!\n❌ He doesn’t works\n✅ He doesn’t work\n\n### 📌 6. Savol gap (Question)\n👉 **Formula:**\n`Do/Does + Subject + V1 ?`\n\n**Misollar:**\n*   Do you work? → Sen ishlaysanmi?\n*   Does he work? → U ishlaydimi?\n\n### 📌 7. Qachon ishlatamiz?\n1.  **Doimiy ishlar**: I wake up at 7, I play football\n2.  **Faktlar**: The sun rises in the east, Water boils at 100°C\n3.  **Jadval**: The train leaves at 9\n\n### 📌 8. Signal so‘zlar\nBu so‘zlarni ko‘rsang — Present Simple bo‘ladi:\n👉 **always, usually, often, sometimes, never**\n\n### 📌 9. Eng muhim xatolar 🚫\n❌ He go to school\n✅ He goes to school\n❌ He doesn’t goes\n✅ He doesn’t go\n\n🔥 **LIFEHACK**\nHe/She/It = **+S**\nDoes = **S yo‘q**'
   },
-  { id: 'present-continuous', title: 'Present Continuous', formula: '', example: '', description: '' },
-  { id: 'present-perfect', title: 'Present Perfect', formula: '', example: '', description: '' },
-  { id: 'present-perfect-continuous', title: 'Present Perfect Continuous', formula: '', example: '', description: '' },
-  { id: 'past-simple', title: 'Past Simple', formula: '', example: '', description: '' },
-  { id: 'past-continuous', title: 'Past Continuous', formula: '', example: '', description: '' },
-  { id: 'past-perfect', title: 'Past Perfect', formula: '', example: '', description: '' },
-  { id: 'past-perfect-continuous', title: 'Past Perfect Continuous', formula: '', example: '', description: '' },
-  { id: 'future-simple', title: 'Future Simple', formula: '', example: '', description: '' },
-  { id: 'future-continuous', title: 'Future Continuous', formula: '', example: '', description: '' },
-  { id: 'future-perfect', title: 'Future Perfect', formula: '', example: '', description: '' },
-  { id: 'future-perfect-continuous', title: 'Future Perfect Continuous', formula: '', example: '', description: '' }
+  { 
+    id: 'present-continuous', 
+    title: 'Present Continuous', 
+    formula: 'Subject + am / is / are + V-ing', 
+    example: 'I am studying.\nHe is working.\nThey are playing football.', 
+    description: '### 📌 1. Present Continuous nima?\n👉 Hozir ayni paytda bo‘layotgan ish uchun ishlatiladi.\n📍 Oddiy qilib: hozir nima qilayapsan? — shu zamon!\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + am / is / are + V-ing`\n\n| Subject | Yordamchi |\n| :--- | :--- |\n| I | am |\n| He / She / It | is |\n| You / We / They | are |\n\n### 📌 3. Misollar:\n*   I am studying → Men hozir o‘qiyapman\n*   He is working → U hozir ishlayapti\n*   They are playing → Ular o‘ynayapti\n\n### 📌 4. -ing qo‘shish qodalari\n1.  **Oddiy**: work → working\n2.  **“e” tushadi**: make → making\n3.  **Oxiri 1 unli + 1 undosh** → 2 marta yoziladi: run → running\n\n### 📌 5. Inkor gap (Negative)\n`Subject + am/is/are + not + V-ing`\n\n**Misollar:**\n*   I am not studying → Men o‘qimayapman\n*   He is not working → U ishlamayapti\n\n### 📌 6. Savol gap (Question)\n`Am / Is / Are + Subject + V-ing?`\n\n**Misollar:**\n*   Are you studying? → Sen o‘qiyapsanmi?\n*   Is he working? → U ishlayaptimi?\n\n### 📌 7. Qachon ishlatiladi?\n1.  **Hozir ayni paytda**: I am eating\n2.  **Vaqtincha ishlar**: I am learning English these days\n3.  **Hozirgi o‘zgarishlar**: The weather is getting colder\n\n### 📌 8. Signal so‘zlar\n👉 **now, at the moment, right now, currently**\n\n### 📌 9. Eng muhim xatolar 🚫\n❌ I am study\n✅ I am studying\n❌ She playing\n✅ She is playing\n\n🔥 **SUPER LIFEHACK**\nam / is / are + V-ing = Hozir bo\'layotgan ish!' 
+  },
+  { 
+    id: 'present-perfect', 
+    title: 'Present Perfect', 
+    formula: 'Subject + have / has + V3', 
+    example: 'I have finished my work.\nHe has gone to school.\nThey have seen this film.', 
+    description: '### 📌 1. Present Perfect nima?\n👉 O‘tmishda bo‘lgan, lekin hozir bilan bog‘liq ishlar uchun.\n📍 Oddiy qilib: **natija hozir muhim!**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + have / has + V3`\n\n| Subject | Yordamchi |\n| :--- | :--- |\n| I / You / We / They | have |\n| He / She / It | has |\n\n### 📌 3. V3 nima?\n👉 Fe’lning 3-shakli (Past Participle)\n*   go → **gone**\n*   eat → **eaten**\n*   do → **done**\n\n### 📌 4. Misollar:\n*   I have finished my work → Men ishni tugatdim (natija bor)\n*   He has gone to school → U maktabga ketgan (hali u yerda)\n\n### 📌 5. Inkor gap (Negative)\n`Subject + have/has + not + V3`\n\n### 📌 6. Savol gap (Question)\n`Have / Has + Subject + V3?`\n\n### 📌 7. Qachon ishlatiladi? 🔥\n1.  **Natija muhim**: I have lost my phone (Telefonim hozir yo\'q)\n2.  **Tajriba**: I have visited Tashkent (Borganman)\n3.  **Davom etayotgan ish**: I have lived here for 5 years\n\n### 📌 8. Signal so‘zlar\n👉 **already, just, yet, ever, never, for, since**\n\n### 📌 9. Past Simple bilan farqi ⚠️\n*   **Present Perfect**: Qachonligi muhim emas\n*   **Past Simple**: Bo\'lgan vaqti aniq\n\n### 📌 10. Eng muhim xatolar 🚫\n❌ I have went\n✅ I have gone\n❌ He have done\n✅ He has done\n\n🔥 **SUPER LIFEHACK**\nNatija hozir muhim bo\'lsa — Present Perfect!' 
+  },
+  { 
+    id: 'present-perfect-continuous', 
+    title: 'Present Perfect Continuous', 
+    formula: 'Subject + have/has + been + V-ing', 
+    example: 'I have been studying for 2 hours.\nHe has been working since morning.', 
+    description: '### 📌 1. Present Perfect Continuous nima?\n👉 O‘tmishda boshlangan va hozirgacha davom etayotgan ish uchun.\n📍 Oddiy qilib: **qancha vaqt davom etayapti?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + have/has + been + V-ing`\n\n### 📌 3. Misollar:\n*   I have been studying → Men o‘qib kelayapman\n*   He has been working → U ishlab kelayapti\n\n### 📌 4. Qachon ishlatiladi? 🔥\n1.  **Davomiylik**: I have been studying for 2 hours\n2.  **Natija ko‘rinib turibdi**: She is tired because she has been working\n\n### 📌 5. Signal so‘zlar\n👉 **for (qancha vaqt), since (qachondan beri)**\n\n### 📌 6. Inkor va Savol\n*   **Inkor**: Subject + have/has not been + V-ing\n*   **Savol**: Have/Has + Subject + been + V-ing?\n\n### 📌 7. Present Perfect bilan farqi\n*   **Perfect**: Natija\n*   **Perfect Continuous**: Jarayon (davom etyapman)\n\n### 📌 8. Eng muhim xatolar 🚫\n❌ I have been study\n✅ I have been studying\n❌ I am been working\n✅ I have been working\n\n🔥 **SUPER LIFEHACK**\nfor / since bo\'lsa 90% holatda shu zamon!' 
+  },
+  { 
+    id: 'past-simple', 
+    title: 'Past Simple', 
+    formula: '(+) S + V2 (-ed / irregular)\n(-) S + did not + V1\n(?) Did + S + V1?', 
+    example: 'I worked yesterday.\nHe went to school.\nI didn\'t see him.', 
+    description: '### 📌 1. Past Simple nima?\n👉 O‘tgan zamonda bo‘lib tugagan ishlar uchun.\n📍 Oddiy qilib: **kecha nima qilding?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n**✅ Oddiy gap:** `Subject + V2`\n\n### 📌 3. V2 nima?\n1.  **Regular**: work → worked (-ed qo\'shiladi)\n2.  **Irregular**: go → went, eat → ate (yodlash kerak)\n\n### 📌 4. Inkor gap (Negative)\n`Subject + did not + V1`\n⚠️ **Did** bo\'lsa, fe\'lga s yoki ed qo\'shilmaydi!\n❌ I didn\'t went\n✅ I didn\'t go\n\n### 📌 5. Savol gap (Question)\n`Did + Subject + V1?`\n\n### 📌 6. Signal so‘zlar\n👉 **yesterday, last week, ago, in 2020**\n\n### 📌 7. Eng muhim xatolar 🚫\n❌ I did not went\n✅ I did not go\n❌ Did you went?\n✅ Did you go?\n\n🔥 **SUPER LIFEHACK**\nPositive → **V2**, Negative/Question → **did + V1**' 
+  },
+  { 
+    id: 'past-continuous', 
+    title: 'Past Continuous', 
+    formula: 'Subject + was / were + V-ing', 
+    example: 'I was studying at 8 pm.\nThey were playing while I was watching TV.', 
+    description: '### 📌 1. Past Continuous nima?\n👉 O‘tmishda ma’lum bir vaqtda davom etayotgan ish.\n📍 Oddiy qilib: **kecha soat 8 da nima qilayotgan eding?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + was / were + V-ing`\n\n| Subject | Yordamchi |\n| :--- | :--- |\n| I / He / She / It | was |\n| You / We / They | were |\n\n### 📌 3. Misollar:\n*   I was studying → Men o\'qiyotgan edim\n*   They were playing → Ular o\'ynayotgan edi\n\n### 📌 4. Inkor va Savol\n*   **Inkor**: Subject + was/were not + V-ing\n*   **Savol**: Was/Were + Subject + V-ing?\n\n### 📌 5. Qachon ishlatiladi? 🔥\n1.  **Aniq vaqt**: I was studying at 8 pm yesterday\n2.  **Boshqa ish bilan birga**: I was studying when he called\n\n### 📌 6. Signal so‘zlar\n👉 **while (paytida), when (qachonki)**\n\n### 📌 7. Eng muhim xatolar 🚫\n❌ I was study\n✅ I was studying\n❌ They was playing\n✅ They were playing' 
+  },
+  { 
+    id: 'past-perfect', 
+    title: 'Past Perfect', 
+    formula: 'Subject + had + V3', 
+    example: 'I had finished my work before he came.\nHe had left when I arrived.', 
+    description: '### 📌 1. Past Perfect nima?\n👉 O‘tmishda bir ish boshqa ishdan oldin bo‘lib tugaganini ko‘rsatadi.\n📍 Oddiy qilib: **“o‘sha paytdan ham oldin nima bo‘lgandi?”**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + had + V3` (Hammasiga had)\n\n### 📌 3. Misollar:\n*   I had finished my work → Men ishni tugatgan edim\n*   He had gone to school → U maktabga ketgan edi\n\n### 📌 4. Qachon ishlatiladi? 🔥\n1.  **Ikki o‘tgan ish**: Bir ish oldin, biri keyin bo\'lsa.\n2.  **“when / before / after”** bilan ko\'p keladi.\n\n### 📌 5. Signal so‘zlar\n👉 **before, after, when, already**\n\n### 📌 6. Eng muhim xatolar 🚫\n❌ I had went\n✅ I had gone\n❌ I had finish\n✅ I had finished\n\n🔥 **SUPER LIFEHACK**\nO\'tgan zamondagi ikkita ishdan birinchi bo\'lgani — **Past Perfect**!' 
+  },
+  { 
+    id: 'past-perfect-continuous', 
+    title: 'Past Perfect Continuous', 
+    formula: 'Subject + had been + V-ing', 
+    example: 'I had been studying for 2 hours before the exam started.', 
+    description: '### 📌 1. Past Perfect Continuous nima?\n👉 O‘tmishda bir ish boshqa ishdan OLDIN uzoq vaqt davom etib kelganini ko‘rsatadi.\n📍 Oddiy qilib: **qancha vaqt davom etib kelayotgan edi?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + had been + V-ing`\n\n### 📌 3. Qachon ishlatiladi? 🔥\n1.  **Davomiylik**: I had been studying for 2 hours before the exam\n2.  **Sabab**: She was tired because she had been working\n\n### 📌 4. Signal so‘zlar\n👉 **for, since, before**\n\n### 📌 5. Eng muhim xatolar 🚫\n❌ I had been study\n✅ I had been studying\n❌ I was been studying\n✅ I had been studying' 
+  },
+  { 
+    id: 'future-simple', 
+    title: 'Future Simple', 
+    formula: 'Subject + will + V1', 
+    example: 'I will study tomorrow.\nHe won\'t go to the party.\nWill you help me?', 
+    description: '### 📌 1. Future Simple nima?\n👉 Kelajakda bo‘ladigan ishlar uchun.\n📍 Oddiy qilib: **ertaga nima qilasan?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + will + V1` (Hamma bilan bir xil)\n\n### 📌 3. Inkor va Savol\n*   **Inkor**: Subject + won\'t + V1\n*   **Savol**: Will + Subject + V1?\n\n### 📌 4. Qachon ishlatiladi? 🔥\n1.  **Tez qaror**: I will open the door (Hozir qaror qildim)\n2.  **Bashorat**: It will rain tomorrow\n3.  **Va’da / taklif**: I will help you\n\n### 📌 5. Signal so‘zlar\n👉 **tomorrow, next week, soon, later**\n\n### 📌 6. Going to bilan farqi ⚠️\n*   **Will**: Hozirgi qaror\n*   **Going to**: Rejalashtirilgan ish\n\n🔥 **SUPER LIFEHACK**\nwill + V1 = Kelajakda qilaman!' 
+  },
+  { 
+    id: 'future-continuous', 
+    title: 'Future Continuous', 
+    formula: 'Subject + will be + V-ing', 
+    example: 'I will be studying at this time tomorrow.', 
+    description: '### 📌 1. Future Continuous nima?\n👉 Kelajakda ma’lum bir vaqtda davom etayotgan ish.\n📍 Oddiy qilib: **ertaga shu paytda nima qilayotgan bo‘lasan?**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + will be + V-ing`\n\n### 📌 3. Misollar:\n*   I will be studying → Men o‘qiyotgan bo‘laman\n*   He will be working → U ishlayotgan bo‘ladi\n\n### 📌 4. Qachon ishlatiladi? 🔥\n1.  **Aniq vaqt**: I will be studying at 8 pm tomorrow\n2.  **Taxmin**: He will be sleeping now (U uxlayotgandir)\n\n### 📌 5. Signal so‘zlar\n👉 **at this time tomorrow, at 5 pm tomorrow**' 
+  },
+  { 
+    id: 'future-perfect', 
+    title: 'Future Perfect', 
+    formula: 'Subject + will have + V3', 
+    example: 'I will have finished my homework by 9 pm.', 
+    description: '### 📌 1. Future Perfect nima?\n👉 Kelajakda ma’lum bir vaqtgacha ish tugagan bo‘ladi.\n📍 Oddiy qilib: **“...gacha tugatgan bo‘laman”**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + will have + V3`\n\n### 📌 3. Qachon ishlatiladi? 🔥\n1.  **Deadline**: I will have finished my homework by 9 pm\n2.  **Kelajak natijasi**: She will have arrived by tomorrow\n\n### 📌 4. Signal so‘zlar\n👉 **by (gacha) — eng muhimi!**, by next week, by 2026\n\n### 📌 5. Eng muhim xatolar 🚫\n❌ I will have went\n✅ I will have gone\n❌ I will have finish\n✅ I will have finished' 
+  },
+  { 
+    id: 'future-perfect-continuous', 
+    title: 'Future Perfect Continuous', 
+    formula: 'Subject + will have been + V-ing', 
+    example: 'I will have been studying for 3 hours by 9 pm.', 
+    description: '### 📌 1. Future Perfect Continuous nima?\n👉 Kelajakda ma’lum bir vaqtgacha ish qancha vaqt davom etgan bo‘ladi.\n📍 Oddiy qilib: **“…dan beri … qilib kelayotgan bo‘laman”**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + will have been + V-ing`\n\n### 📌 3. Qachon ishlatiladi? 🔥\n1.  **Davomiylik + Kelajak**: I will have been studying for 3 hours by 9 pm\n\n### 📌 4. Signal so‘zlar\n👉 **for, since, by**' 
+  }
 ];

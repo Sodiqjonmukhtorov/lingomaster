@@ -18,6 +18,7 @@ import TenseGame from './components/TenseGame';
 import SprintGame from './components/SprintGame';
 import HelpModal from './components/HelpModal';
 import SupportWidget from './components/SupportWidget';
+import PasswordGate from './components/PasswordGate';
 
 type ViewType = 'HOME' | 'VOCABULARY' | 'TENSE';
 type WordCategory = 'SHORT' | 'B_PLUS' | 'C_PLUS';
@@ -342,35 +343,37 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFEFE] flex flex-col">
-      {!isGameActive && (
-        <Header 
-          onHome={resetGame} 
-          onTense={handleTense}
-          onMegaExam={handleMegaExam}
-          onVocabulary={handleVocabulary}
-          onHelp={() => { setHelpMode('ABOUT'); setIsHelpOpen(true); }}
-          onFaq={() => { setHelpMode('FAQ'); setIsHelpOpen(true); }}
-          lang={lang} 
-          setLang={setLang} 
-          currentView={currentViewId}
-        />
-      )}
-      <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} lang={lang} mode={helpMode} setMode={setHelpMode} />
-      
-      <main className={`flex-1 w-full mx-auto ${view === 'TENSE' || isGameActive ? '' : 'py-6 md:py-10'}`}>
-        {renderContent()}
-      </main>
-
-      {!isGameActive && <SupportWidget />}
-      
-      <footer className="py-16 md:py-24 border-t border-slate-50 bg-slate-50/10 text-center">
-          <h4 className="text-slate-900 font-black text-2xl md:text-3xl uppercase tracking-tighter italic">LINGOMASTER</h4>
-          <p className="text-slate-500 font-black text-[9px] md:text-xs uppercase tracking-[0.4em] mt-3">
-            © 2025 <span className="bg-gradient-to-r from-orange-400 to-rose-500 text-white px-4 py-1.5 rounded-xl ml-1 shadow-lg shadow-orange-100">Sodiqjon Mukhtorov</span>
-          </p>
-      </footer>
-    </div>
+    <PasswordGate lang={lang}>
+      <div className="min-h-screen bg-[#FDFEFE] flex flex-col">
+        {!isGameActive && (
+          <Header 
+            onHome={resetGame} 
+            onTense={handleTense}
+            onMegaExam={handleMegaExam}
+            onVocabulary={handleVocabulary}
+            onHelp={() => { setHelpMode('ABOUT'); setIsHelpOpen(true); }}
+            onFaq={() => { setHelpMode('FAQ'); setIsHelpOpen(true); }}
+            lang={lang} 
+            setLang={setLang} 
+            currentView={currentViewId}
+          />
+        )}
+        <HelpModal isOpen={isHelpOpen} onClose={() => setIsHelpOpen(false)} lang={lang} mode={helpMode} setMode={setHelpMode} />
+        
+        <main className={`flex-1 w-full mx-auto ${view === 'TENSE' || isGameActive ? '' : 'py-6 md:py-10'}`}>
+          {renderContent()}
+        </main>
+  
+        {!isGameActive && <SupportWidget />}
+        
+        <footer className="py-16 md:py-24 border-t border-slate-50 bg-slate-50/10 text-center">
+            <h4 className="text-slate-900 font-black text-2xl md:text-3xl uppercase tracking-tighter italic">LINGOMASTER</h4>
+            <p className="text-slate-500 font-black text-[9px] md:text-xs uppercase tracking-[0.4em] mt-3">
+              © 2025 <span className="bg-gradient-to-r from-orange-400 to-rose-500 text-white px-4 py-1.5 rounded-xl ml-1 shadow-lg shadow-orange-100">Sodiqjon Mukhtorov</span>
+            </p>
+        </footer>
+      </div>
+    </PasswordGate>
   );
 };
 
