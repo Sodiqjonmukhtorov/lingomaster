@@ -1,5 +1,5 @@
 
-import { Unit, Word, Tense } from './types';
+import { Unit, Word, Tense, IrregularVerb } from './types';
 
 export const CUSTOM_VOCAB: Record<string, Word[]> = {
   SHORT: [
@@ -1230,4 +1230,22 @@ export const TENSE_DATA: Tense[] = [
     example: 'I will have been studying for 3 hours by 9 pm.', 
     description: '### 📌 1. Future Perfect Continuous nima?\n👉 Kelajakda ma’lum bir vaqtgacha ish qancha vaqt davom etgan bo‘ladi.\n📍 Oddiy qilib: **“…dan beri … qilib kelayotgan bo‘laman”**\n\n### 📌 2. Formula (eng muhim ⚠️)\n`Subject + will have been + V-ing`\n\n### 📌 3. Qachon ishlatiladi? 🔥\n1.  **Davomiylik + Kelajak**: I will have been studying for 3 hours by 9 pm\n\n### 📌 4. Signal so‘zlar\n👉 **for, since, by**' 
   }
+];
+
+export const IRREGULAR_VERBS: IrregularVerb[] = [
+  { v1: 'arise', v2: 'arose', v3: 'arisen', uz: 'vujudga kelmoq, ko‘tarilmoq' },
+  { v1: 'awake', v2: 'awoke', v3: 'awoke', uz: 'uyg‘onmoq, uyg‘otmoq' },
+  { v1: 'backslide', v2: 'backslid', v3: 'backslid', uz: 'qayta salobatga qaytmoq' },
+  { v1: 'be (am/is/are)', v2: 'was/were', v3: 'been', uz: 'bo‘lmoq' },
+  { v1: 'bear', v2: 'bore', v3: 'born', uz: 'toqat qilmoq, tug‘moq' },
+  { v1: 'beat', v2: 'beat', v3: 'beaten', uz: 'urmoq, mag‘lub bo‘lmoq' },
+  { v1: 'become', v2: 'became', v3: 'become', uz: 'bo‘lmoq, shakllanmoq' },
+  { v1: 'befall', v2: 'befell', v3: 'befallen', uz: 'kishiga biror hodisa bo‘lmoq' },
+  { v1: 'beget', v2: 'begot', v3: 'begotten', uz: 'sabab bo‘lmoq' },
+  { v1: 'begin', v2: 'began', v3: 'begun', uz: 'boshlamoq, boshlanmoq' },
+  { v1: 'behold', v2: 'beheld', v3: 'beheld', uz: 'qaramoq, tomosha qilmoq' },
+  { v1: 'bend', v2: 'bent', v3: 'bent', uz: 'egmoq, bukmoq, qayirmoq' },
+  { v1: 'beseech', v2: 'besought', v3: 'besought', uz: 'yalimoq, yolvormoq, o‘timoq' },
+  { v1: 'beset', v2: 'beset', v3: 'beset', uz: 'qurshamoq, qurshab olmoq' },
+  { v1: 'bespeak', v2: 'bespoke', v3: 'bespoken', uz: 'ifodalamoq, bildirmoq' }
 ];

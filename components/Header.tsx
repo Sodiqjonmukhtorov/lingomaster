@@ -6,6 +6,7 @@ import { t } from '../translations';
 interface HeaderProps {
   onHome: () => void;
   onTense: () => void;
+  onIrregular: () => void;
   onMegaExam: () => void;
   onVocabulary: () => void;
   onHelp: () => void;
@@ -15,7 +16,7 @@ interface HeaderProps {
   currentView: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabulary, onHelp, onFaq, lang, setLang, currentView }) => {
+const Header: React.FC<HeaderProps> = ({ onHome, onTense, onIrregular, onMegaExam, onVocabulary, onHelp, onFaq, lang, setLang, currentView }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const text = t[lang];
 
@@ -67,6 +68,7 @@ const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabula
           <nav className="hidden md:flex items-center justify-center gap-2">
             <NavBtn active={currentView === 'HOME'} onClick={onHome} label="HOME" />
             <NavBtn active={currentView === 'VOCABULARY'} onClick={onVocabulary} label="VOCABULARY" />
+            <NavBtn active={currentView === 'IRREGULAR'} onClick={onIrregular} label="VERBS" />
             <NavBtn active={currentView === 'TENSE'} onClick={onTense} label="TENSES" />
             <NavBtn active={currentView === 'MEGA'} onClick={onMegaExam} label="MEGA EXAM" />
           </nav>
@@ -127,6 +129,7 @@ const Header: React.FC<HeaderProps> = ({ onHome, onTense, onMegaExam, onVocabula
             <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-1">
               <NavBtnSidebar active={currentView === 'HOME'} onClick={() => handleNav(onHome)} label="HOME" icon="🏠" />
               <NavBtnSidebar active={currentView === 'VOCABULARY'} onClick={() => handleNav(onVocabulary)} label="VOCABULARY" icon="📚" />
+              <NavBtnSidebar active={currentView === 'IRREGULAR'} onClick={() => handleNav(onIrregular)} label="VERBS" icon="⚡" />
               <NavBtnSidebar active={currentView === 'TENSE'} onClick={() => handleNav(onTense)} label="TENSES" icon="⏳" />
               <NavBtnSidebar active={currentView === 'MEGA'} onClick={() => handleNav(onMegaExam)} label="FULL EXAM" icon="🏆" />
               

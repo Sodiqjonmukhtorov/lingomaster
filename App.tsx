@@ -15,12 +15,14 @@ import VoiceGame from './components/VoiceGame';
 import GlobalExam from './components/GlobalExam';
 import ExamUnitSelector from './components/ExamUnitSelector';
 import TenseGame from './components/TenseGame';
+import IrregularVerbsView from './components/IrregularVerbsView';
 import SprintGame from './components/SprintGame';
 import HelpModal from './components/HelpModal';
 import SupportWidget from './components/SupportWidget';
 import PasswordGate from './components/PasswordGate';
+import UnitWordsList from './components/UnitWordsList';
 
-type ViewType = 'HOME' | 'VOCABULARY' | 'TENSE';
+type ViewType = 'HOME' | 'VOCABULARY' | 'TENSE' | 'IRREGULAR';
 type WordCategory = 'SHORT' | 'B_PLUS' | 'C_PLUS';
 
 const App: React.FC = () => {
@@ -67,6 +69,12 @@ const App: React.FC = () => {
     setSelectedUnit(null);
   };
 
+  const handleIrregular = () => {
+    setView('IRREGULAR');
+    setGameMode(GameMode.IDLE);
+    setSelectedUnit(null);
+  };
+
   const handleMegaExam = () => {
     setIsSelectingExamUnits(true);
     setGameMode(GameMode.IDLE);
@@ -101,6 +109,7 @@ const App: React.FC = () => {
 
   const getCurrentViewId = () => {
     if (view === 'TENSE') return 'TENSE';
+    if (view === 'IRREGULAR') return 'IRREGULAR';
     if (gameMode === GameMode.GLOBAL_EXAM || isSelectingExamUnits) return 'MEGA';
     if (view === 'VOCABULARY') return 'VOCABULARY';
     return 'HOME';
@@ -118,6 +127,10 @@ const App: React.FC = () => {
   const renderContent = () => {
     if (view === 'TENSE') {
       return <TenseGame lang={lang} onExit={resetGame} />;
+    }
+
+    if (view === 'IRREGULAR') {
+      return <IrregularVerbsView lang={lang} onExit={resetGame} />;
     }
 
     if (isSelectingExamUnits) {
@@ -257,9 +270,23 @@ const App: React.FC = () => {
                 </button>
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tighter italic">{selectedUnit.title}</h2>
               </div>
+              <button 
+                onClick={() => setGameMode(GameMode.VIEW_WORDS)}
+                className="w-full md:w-auto flex items-center justify-center gap-3 px-8 py-5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-[2rem] font-black text-[11px] md:text-xs uppercase tracking-[0.15em] transition-all shadow-xl shadow-emerald-100 active:scale-95 group"
+              >
+                <span>📖</span>
+                {lang === 'uz' ? "Hamma so'zlarni ko'rish" : "View All Words"}
+              </button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <GameCard onClick={() => setGameMode(GameMode.SPRINT)} title={text.sprint} desc={text.sprintDesc} icon="⚡" isNew />
+              <GameCard 
+                onClick={() => setGameMode(GameMode.VIEW_WORDS)} 
+                title={lang === 'uz' ? "Lug'at ro'yxati" : "Words List"} 
+                desc={lang === 'uz' ? "Ushbu bo'limdagi barcha so'zlarni chiroyli ustunda ko'rish va o'rganish" : "View and learn all words in this topic in a beautiful column layout"} 
+                icon="📖" 
+                isNew
+              />
+              <GameCard onClick={() => setGameMode(GameMode.SPRINT)} title={text.sprint} desc={text.sprintDesc} icon="⚡" />
               <GameCard onClick={() => setGameMode(GameMode.FLASHCARDS)} title={text.flashcards} desc={text.flashcardsDesc} icon="🃏" />
               <GameCard onClick={() => setGameMode(GameMode.QUIZ)} title={text.quiz} desc={text.quizDesc} icon="❓" />
               <GameCard onClick={() => setGameMode(GameMode.MATCH)} title={text.match} desc={text.matchDesc} icon="🔥" />
@@ -297,6 +324,7 @@ const App: React.FC = () => {
           case GameMode.VOICE_UZ_EN: return <VoiceGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} direction="UZ_EN" />;
           case GameMode.PRONUNCIATION: return <VoiceGame words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} direction="EN_READ" />;
           case GameMode.EXAM: return <Exam words={words} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} />;
+          case GameMode.VIEW_WORDS: return <UnitWordsList words={words} unitTitle={selectedUnit.title} lang={lang} onExit={() => setGameMode(GameMode.IDLE)} speak={speak} />;
           default: return null;
         }
       }
@@ -349,6 +377,7 @@ const App: React.FC = () => {
           <Header 
             onHome={resetGame} 
             onTense={handleTense}
+            onIrregular={handleIrregular}
             onMegaExam={handleMegaExam}
             onVocabulary={handleVocabulary}
             onHelp={() => { setHelpMode('ABOUT'); setIsHelpOpen(true); }}
